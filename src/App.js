@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
 import ExampleWithFetch from './ExampleWithFetch';
 import ExampleWithReactQuery from './ExampleWithReactQuery';
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 const queryClient = new QueryClient();
 
@@ -15,6 +16,7 @@ function App() {
           <ExampleWithReactQuery />
         </div>
       </div>
+      <ReactQueryDevtools initialIsOpen={false} />
      </QueryClientProvider>
   );
 }

@@ -1,4 +1,4 @@
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
 import { fetchTodos, fetchUser } from './api';
 
 function Todo({ todo }) {
@@ -25,6 +25,7 @@ function Todos({ todos }) {
 
 function ExampleWithReactQuery() {
 	const { isLoading, error, data } = useQuery('todos', fetchTodos);
+	const queryClient = useQueryClient();
 
   return (
     <div>

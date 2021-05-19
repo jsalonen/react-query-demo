@@ -1,15 +1,6 @@
 import { useEffect, useState } from 'react';
 import Todos from './Todos';
-
-async function fetchTodos() {
-  const res = await fetch('https://jsonplaceholder.typicode.com/todos/');
-  return await res.json();
-}
-
-async function fetchUser(id) {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-  return await res.json();
-}
+import { fetchTodos, fetchUser } from './api';
 
 async function fetchTodosWithUsers() {
   const todos = await fetchTodos();
@@ -31,6 +22,7 @@ function ExampleWithFetch() {
 
   return (
     <div>
+      <h1>Fetch</h1>
       { todos === undefined && <>Loading</> }
       { todos && <Todos todos={todos} />}      
     </div>

@@ -1,14 +1,22 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { fetchTodos, fetchUser } from './api';
 
+function useTodos() {
+  return useQuery('todos', fetchTodos);
+}
+
+function useUser(userId) {
+	return useQuery(['users', userId], () => fetchUser(userId));
+}
+
 function Todo({ todo }) {
-	const user = useQuery(['users', todo.userId], () => fetchUser(todo.userId));
+  const { data: user } = useUser(todo.userId);
 
 	return (
 		<li key={todo.id}>
 			{todo.title}
 			&nbsp;
-			{user.data && (<a href={user.data.email}>{user.data.name}</a>)}
+			{user && (<a href={user.email}>{user.name}</a>)}
 		</li>
 	);
 }
@@ -24,8 +32,7 @@ function Todos({ todos }) {
 };
 
 function ExampleWithReactQuery() {
-	const { isLoading, error, data } = useQuery('todos', fetchTodos);
-	const queryClient = useQueryClient();
+	const { isLoading, error, data } = useTodos();
 
   return (
     <div>
